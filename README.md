@@ -1,0 +1,2 @@
+# KapiTheGame
+Simple study project
