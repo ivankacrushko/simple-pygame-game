@@ -97,7 +97,7 @@ class Window:
             return elem[1]
 
         cv = [user,score]
-        scoreboard_file = open("scoreboard.txt", "r")
+        scoreboard_file = open("data/scoreboard.txt", "r")
         scoreboard = scoreboard_file.readlines()
         
         for i in range(len(scoreboard)):
