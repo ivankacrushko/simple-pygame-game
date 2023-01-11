@@ -115,7 +115,7 @@ class Window:
         scoreboard_file.close()
         
         
-        scoreobard_file = open("scoreboard.txt", "w")
+        scoreobard_file = open("data/scoreboard.txt", "w")
         for i in range(len(scoreboard)):
             line = scoreboard[i][0],':',str(scoreboard[i][1]),'\n'
             scoreobard_file.writelines(line)
