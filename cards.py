@@ -1,6 +1,9 @@
 import pygame
 from pygame import mixer
 import os
+from pyfirmata import Arduino, util, STRING_DATA
+import pyfirmata
+import time
 
 class Snake:
     def __init__(self, screen, enemy_list):
@@ -34,12 +37,22 @@ class Snake:
         self.snake_image_move = pygame.image.load('assets/graphic/space_move.png')
         self.base_bullet_image = pygame.image.load('assets/graphic/bullet.png')
 
+        self.board = Arduino("COM11")
+
+        self.X_axis = self.board.get_pin('a:0:i')
+        self.Y_axis = self.board.get_pin('a:1:i')
+        self.Joystick_button = self.board.get_pin('a:2:i')
+
 
     def move(self, screen):
         keys = pygame.key.get_pressed()      
         self.snake_img = pygame.transform.rotate(self.snake_image, self.direction)
 
-        if keys[pygame.K_RIGHT]:
+        self.it = pyfirmata.util.Iterator(self.board)
+        self.it.start()
+        self.Joystick_button.mode = pyfirmata.INPUT
+
+        if float(self.X_axis.read() or 0) > 0.7:
             self.speed_x += self.core_speed/10
             if self.speed_x >= self.core_speed:
                 self.speed_x = self.core_speed
@@ -48,7 +61,7 @@ class Snake:
             self.snake_img = pygame.transform.rotate(self.snake_image_move, -90)
             self.direction = -90
 
-        if keys[pygame.K_LEFT]:
+        if float(self.X_axis.read() or 0) > 0.7:
             self.speed_x += self.core_speed/10
             if self.speed_x >= self.core_speed:
                 self.speed_x = self.core_speed
@@ -57,7 +70,7 @@ class Snake:
             self.snake_img = pygame.transform.rotate(self.snake_image_move, 90)
             self.direction = 90
             
-        if keys[pygame.K_UP]:
+        if float(self.Y_axis.read() or 0) < 0.3:
 
             self.speed_y +=self.core_speed/10
             if self.speed_y >= self.core_speed:
@@ -67,7 +80,7 @@ class Snake:
             self.snake_img = pygame.transform.rotate(self.snake_image_move, self.direction)
             self.direction = 0
 
-        if keys[pygame.K_DOWN]:
+        if float(self.Y_axis.read() or 0) > 0.7:
             self.speed_y +=self.core_speed/10
             if self.speed_y >= self.core_speed:
                 self.speed_y = self.core_speed
@@ -260,7 +273,8 @@ class Snake:
             self.speed_increase = 0.5
             self.shooting_approval = False
         
-            
+
+
                     
 
 
