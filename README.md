@@ -1,4 +1,4 @@
-# KapiTheGame
+# pygame-game
 Prosty projekt na studia, oparty o pygame. W grze wcielasz się w kapitana statku, który pomaga atakowanym przez wroge UFO bezbronnym kosmitom.  Uratuj jak najwiecej, aby pokonać innych w tabeli! Przy każdym uratowaniu, gracz otrzymuje punkt oraz bonus do prędkości poruszania się, a za pokonanie wrogiego UFO dodatkowy punkt.
 
 # Requirements
